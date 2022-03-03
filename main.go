@@ -62,7 +62,6 @@ func main() {
 	am.CreateIGOAuth2Client()
 	am.CreateIGPolicyAgent()
 	am.CreatePSU()
-	am.PopulateRSData()
 
 	am.ApplySystemClients(s.Cookie)
 

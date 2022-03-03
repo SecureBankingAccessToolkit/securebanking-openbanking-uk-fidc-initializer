@@ -205,29 +205,3 @@ func GetIdentityIdByUsername(identity string) string {
 
     return userId
 }
-
-// PopulateRSData -
-func PopulateRSData() {
-
-	id := GetIdentityIdByUsername(viper.GetString("PSU_USERNAME"))
-
-	if id == "" {
-        zap.S().Debug("The user with the username " + viper.GetString("PSU_USERNAME") + " doesn't exist")
-    }
-    zap.S().Infow("Populate with RS Data the Payment Services User with the username: " + viper.GetString("PSU_USERNAME"))
-
-
-	user := &common.PopulateRsDataRequestBody{
-		UserId:   id,
-		UserName: viper.GetString("PSU_USERNAME"),
-		Profile:  "random",
-	}
-
-	path := "https://rs.andra-racovita.forgerock.financial/admin/fake-data/generate"
-	s := Client.Post(path, user, map[string]string{
-		"Accept":       "*/*",
-		"Connection":   "keep-alive",
-	})
-
-    zap.S().Infow("Populate RS Data response", "statusCode", s)
-}

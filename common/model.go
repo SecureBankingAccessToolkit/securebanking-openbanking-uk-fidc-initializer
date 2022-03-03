@@ -21,10 +21,3 @@ type PSU struct {
 	Mail      string      `json:"mail"`
 	Password  string      `json:"password"`
 }
-
-type PopulateRsDataRequestBody struct {
-	UserId    string      `json:"userId"`
-	UserName  string      `json:"username"`
-	Profile   string      `json:"profile"`
-}
-
