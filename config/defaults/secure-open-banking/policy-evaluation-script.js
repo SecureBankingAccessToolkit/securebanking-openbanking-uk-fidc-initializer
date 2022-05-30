@@ -207,7 +207,7 @@ function getIdmAccessToken() {
 function findIntentType(api) {
     if (getRequestTypeAccountAndTransactions(api) != null)
         return "accountAccessIntent"
-    else if (api === "domestic-payments")
+    else if (api === "domestic-payments" || api === "domestic-payment-consents")
         return "domesticPaymentIntent"
     return null
 }
