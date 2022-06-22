@@ -101,7 +101,7 @@ func (s *Session) GetIDMAdminToken() {
 //
 // Substitution is performed using syntax as described in: https://pkg.go.dev/text/template
 //
-func Unmarshal(file string, config *types.Configuration, v any) error {
+func Unmarshal(file string, config *types.Configuration, v interface{}) error {
 	var err error
 	var b []byte
 	buf := bytes.NewBuffer(b)
