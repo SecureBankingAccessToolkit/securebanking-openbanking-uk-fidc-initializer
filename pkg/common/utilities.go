@@ -4,11 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"html/template"
 	"net/http"
 	"net/url"
 	"path/filepath"
 	"secure-banking-uk-initializer/pkg/types"
+	"text/template"
 
 	"github.com/go-resty/resty/v2"
 	"go.uber.org/zap"
