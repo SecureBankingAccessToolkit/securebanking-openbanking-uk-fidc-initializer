@@ -103,16 +103,15 @@ func (s *Session) GetIDMAdminToken() {
 //
 func Unmarshal(file string, config *types.Configuration, v interface{}) error {
 	var err error
-	var b []byte
-	buf := bytes.NewBuffer(b)
+	var buf bytes.Buffer
 	tmpl, err := template.New(filepath.Base(file)).ParseFiles(file)
 	if err != nil {
 		return err
 	}
-	if err = tmpl.Execute(buf, config); err != nil {
+	if err = tmpl.Execute(&buf, config); err != nil {
 		return err
 	}
-	if err = json.Unmarshal(b, v); err != nil {
+	if err = json.Unmarshal(buf.Bytes(), v); err != nil {
 		return err
 	}
 	return err
