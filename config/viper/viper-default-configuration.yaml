@@ -34,6 +34,7 @@ IDENTITY: # Root key for parameter values related with identity platform configu
   AM_REALM: alpha # The realm used for secure banking
   IDM_CLIENT_ID: policy-client # Placeholder to create Open Banking Dynamic Policy script
   IDM_CLIENT_SECRET: password # Placeholder to create Open Banking Dynamic Policy script
+  POLICY_CLIENT_SECRET: password # Suspect this is the same as IDM_CLIENT_SECRET - used only in create-policy-engine-oauth2-client.json
   SERVICE_ACCOUNT_POLICY_USER: service_account.policy # Service account for Open banking policy
   SERVICE_ACCOUNT_POLICY_PASSWORD: 0penBanking! # Service account for Open banking policy
   SERVICE_ACCOUNT_POLICY_EMAIL: obst@forgerock.com # Service account for Open banking policy
