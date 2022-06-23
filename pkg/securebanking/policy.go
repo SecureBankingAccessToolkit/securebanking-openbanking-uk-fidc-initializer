@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"secure-banking-uk-initializer/pkg/httprest"
 	"secure-banking-uk-initializer/pkg/types"
-	"strings"
 
 	"secure-banking-uk-initializer/pkg/common"
 
@@ -41,17 +40,12 @@ func CreatePolicyEvaluationScript(cookie *http.Cookie) string {
 		return id
 	}
 
-	b, err := ioutil.ReadFile(common.Config.Environment.Paths.ConfigSecureBanking + "policy-evaluation-script.js")
+	b, err := common.Template(common.Config.Environment.Paths.ConfigSecureBanking+"policy-evaluation-script.js", &common.Config)
 	if err != nil {
 		panic(err)
 	}
-	rawPolicyString := string(b)
-	rawPolicyString = strings.ReplaceAll(rawPolicyString, "{{IDM_CLIENT_ID}}", common.Config.Identity.IdmClientId)
-	rawPolicyString = strings.ReplaceAll(rawPolicyString, "{{IDM_CLIENT_SECRET}}", common.Config.Identity.IdmClientSecret)
-	rawPolicyString = strings.ReplaceAll(rawPolicyString, "{{IG_IDM_USER}}", common.Config.Ig.IgIdmUser)
-	rawPolicyString = strings.ReplaceAll(rawPolicyString, "{{IG_IDM_PASSWORD}}", common.Config.Ig.IgIdmPassword)
 
-	scriptB64 := b64.StdEncoding.EncodeToString([]byte(rawPolicyString))
+	scriptB64 := b64.StdEncoding.EncodeToString(b)
 
 	policyScript := &types.PolicyEvaluationScript{
 		Name:        "Open Banking Dynamic Policy",
