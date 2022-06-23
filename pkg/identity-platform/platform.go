@@ -8,7 +8,6 @@ import (
 	"secure-banking-uk-initializer/pkg/common"
 	"secure-banking-uk-initializer/pkg/httprest"
 	"secure-banking-uk-initializer/pkg/types"
-	"strings"
 
 	"go.uber.org/zap"
 )
@@ -95,20 +94,12 @@ func CreateIGPolicyAgent() {
 
 func CreateIdentityPlatformOAuth2AdminClient(cookie *http.Cookie) {
 	zap.L().Info("Creating Identity Platform admin oauth2 client")
-	b, e := ioutil.ReadFile(common.Config.Environment.Paths.ConfigIdentityPlatform + "oauth2-admin-client.json")
+
+	oauth2Client := &types.OAuth2Client{}
+	e := common.Unmarshal(common.Config.Environment.Paths.ConfigIdentityPlatform+"oauth2-admin-client.json", &common.Config, oauth2Client)
 	if e != nil {
 		panic(e)
 	}
-	oauth2Client := &types.OAuth2Client{}
-	err := json.Unmarshal(b, oauth2Client)
-	if err != nil {
-		return
-	}
-	var redirects []string
-	for _, uri := range oauth2Client.CoreOAuth2ClientConfig.RedirectionUris.Value {
-		redirects = append(redirects, strings.ReplaceAll(uri, "{{IDENTITY_PLATFORM_FQDN}}", common.Config.Hosts.IdentityPlatformFQDN))
-	}
-	oauth2Client.CoreOAuth2ClientConfig.RedirectionUris.Value = redirects
 	zap.S().Debugw("Admin client request", "body", oauth2Client)
 	path := "https://" + common.Config.Hosts.IdentityPlatformFQDN + "/am/json/realm-config/agents/OAuth2Client/idmAdminClient"
 	resp, err := restClient.R().
