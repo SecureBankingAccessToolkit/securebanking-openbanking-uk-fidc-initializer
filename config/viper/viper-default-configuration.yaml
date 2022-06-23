@@ -16,6 +16,8 @@ ENVIRONMENT: # Root key to define the environment program properties
     CONFIG_SECURE_BANKING: config/defaults/secure-open-banking/ # Path folder for secure banking
     CONFIG_IDENTITY_PLATFORM: config/defaults/identity-platform/ # Path folder for generic platform configuration
 HOSTS:
+  BASE_FQDN: dev.forgerock.financial
+  WILDCARD_FQDN: "*.forgerock.financial" # If set allows resources in AISP/PISP access to RC/RCS in all subdomains
   IDENTITY_PLATFORM_FQDN: iam.dev.forgerock.financial # Identity platform Host name
   RCS_UI_FQDN: rcs-ui.dev.forgerock.financial # RCS user interface app host name (Consent user app)
   SCHEME: https # URI scheme, Syntax part of a generic URI

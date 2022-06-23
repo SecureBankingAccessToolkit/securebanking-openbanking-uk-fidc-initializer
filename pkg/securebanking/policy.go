@@ -119,12 +119,9 @@ func CreateAISPPolicy(policyScriptId string) {
 		return
 	}
 	zap.L().Info("Creating AISP policy")
-	b, err := ioutil.ReadFile(common.Config.Environment.Paths.ConfigSecureBanking + "aisp-policy.json")
-	if err != nil {
-		panic(err)
-	}
+
 	aisp := &types.CreatePolicy{}
-	err = json.Unmarshal(b, aisp)
+	err := common.Unmarshal(common.Config.Environment.Paths.ConfigSecureBanking+"aisp-policy.json", &common.Config, aisp)
 	if err != nil {
 		panic(err)
 	}
@@ -146,13 +143,8 @@ func CreatePISPPolicy(policyScriptId string) {
 		zap.L().Info("Skipping creation of PISP policy")
 		return
 	}
-	zap.L().Info("Creating PISP policy")
-	b, err := ioutil.ReadFile(common.Config.Environment.Paths.ConfigSecureBanking + "pisp-policy.json")
-	if err != nil {
-		panic(err)
-	}
 	pisp := &types.CreatePolicy{}
-	err = json.Unmarshal(b, pisp)
+	err := common.Unmarshal(common.Config.Environment.Paths.ConfigSecureBanking+"pisp-policy.json", &common.Config, pisp)
 	if err != nil {
 		panic(err)
 	}
