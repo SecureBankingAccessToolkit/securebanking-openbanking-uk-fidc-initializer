@@ -317,7 +317,8 @@ func oauth2ProviderExists(id string) bool {
 func CreateBaseURLSourceService(cookie *http.Cookie) {
 	zap.S().Info("Creating BaseURLSource service in the alpha realm")
 
-	b, err := ioutil.ReadFile(common.Config.Environment.Paths.ConfigSecureBanking + "create-base-url-source.json")
+	s := &types.Source{}
+	err := common.Unmarshal(common.Config.Environment.Paths.ConfigSecureBanking+"create-base-url-source.json", &common.Config, s)
 	if err != nil {
 		panic(err)
 	}
@@ -328,7 +329,7 @@ func CreateBaseURLSourceService(cookie *http.Cookie) {
 		SetHeader("Content-Type", "application/json").
 		SetContentLength(true).
 		SetCookie(cookie).
-		SetBody(b).
+		SetBody(s).
 		Post(path)
 
 	zap.S().Info("resp is " + resp.String())
