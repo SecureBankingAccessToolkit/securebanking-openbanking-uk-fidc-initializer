@@ -90,16 +90,11 @@ func CreateOpenBankingPolicySet() {
 	}
 
 	zap.L().Info("Creating Open Banking policy set")
-	b, err := ioutil.ReadFile(common.Config.Environment.Paths.ConfigSecureBanking + "ob-policy-set.json")
+	ps := &types.OpenBankingPolicySet{}
+	err := common.Unmarshal(common.Config.Environment.Paths.ConfigSecureBanking+"ob-policy-set.json", &common.Config, ps)
 	if err != nil {
 		panic(err)
 	}
-	ps := &types.OpenBankingPolicySet{}
-	err = json.Unmarshal(b, ps)
-	if err != nil {
-		zap.S().Fatalw("Error unmarshalling policy set", "error", err)
-	}
-	ps.Realm = "/alpha"
 	zap.S().Infow("Open Banking Policy set unmarshaled", "policy-set", ps)
 	path := "/am/json/alpha/applications/?_action=create"
 	_, s := httprest.Client.Post(path, ps, map[string]string{
