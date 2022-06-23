@@ -1,7 +1,7 @@
 function getIdmClientDetails() {
     return {
         "id": "{{ .Identity.IdmClientId }}",
-        "secret": "{{ .Identity.IdmClientScret }}",
+        "secret": "{{ .Identity.IdmClientSecret }}",
         "endpoint": "http://am/am/oauth2/realms/root/realms/alpha/access_token",
         "scope": "fr:idm:*",
         "idmAdminUsername": "{{ .Ig.IgIdmUser }}",
