@@ -50,17 +50,13 @@ func CreateIGOAuth2Client() {
 	}
 
 	zap.S().Infof("Creating IG OAuth2 client with id %s", common.Config.Ig.IgClientId)
-	b, err := ioutil.ReadFile(common.Config.Environment.Paths.ConfigIdentityPlatform + "ig-oauth2-client.json")
+	oauth2Client := &types.OAuth2Client{}
+
+	err := common.Unmarshal(common.Config.Environment.Paths.ConfigIdentityPlatform+"ig-oauth2-client.json", &common.Config, oauth2Client)
 	if err != nil {
 		panic(err)
 	}
 
-	oauth2Client := &types.OAuth2Client{}
-	err = json.Unmarshal(b, oauth2Client)
-	if err != nil {
-		panic(err)
-	}
-	oauth2Client.CoreOAuth2ClientConfig.Userpassword = common.Config.Ig.IgClientSecret
 	path := fmt.Sprintf("/am/json/alpha/realm-config/agents/OAuth2Client/%s", common.Config.Ig.IgClientId)
 	s := httprest.Client.Put(path, oauth2Client, map[string]string{
 		"Accept":       "application/json",
