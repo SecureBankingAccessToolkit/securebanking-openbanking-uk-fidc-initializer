@@ -53,5 +53,5 @@ IDENTITY: # Root key for parameter values related with identity platform configu
   TEST_SOFTWARE_PUBLISHER_AGENT_NAME: test-publisher # test software publisher agent
 USERS: # Root key users to be created or to authenticate and authorize flows
   FR_PLATFORM_ADMIN_USERNAME: amadmin # Identity platform Username with admin grants (must exist previously)
-  FR_PLATFORM_ADMIN_PASSWORD: replace-me # Identity platform User password with admin grants (must exist previously)
+  FR_PLATFORM_ADMIN_PASSWORD: change-me # Identity platform User password with admin grants (must exist previously)
 
